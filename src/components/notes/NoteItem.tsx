@@ -10,8 +10,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { NoteType } from "@/types";
+import { date } from "zod";
 
-export const NoteItem = ({ id, title, content, timestamp }: NoteType) => {
+export const NoteItem = ({
+  id = -1,
+  title = "",
+  content = "",
+  timestamp = new Date("2023-11-05T10:05:00Z"),
+}: NoteType) => {
   return (
     <Card className="min-w-[300px]  flex flex-col">
       <CardHeader>

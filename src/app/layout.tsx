@@ -5,6 +5,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Nav } from "@/components/Nav";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Footer } from "@/components/footer/Footer";
+import { FloatingButton } from "@/components/FloatingButton";
 // const inter = Inter({ subsets: ["latin"] });
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -37,8 +39,9 @@ export default function RootLayout({
         >
           <Nav />
           {children}
+          <FloatingButton />
+          <Footer />{" "}
         </ThemeProvider>
-        {/* {children} */}
       </body>
     </html>
   );
