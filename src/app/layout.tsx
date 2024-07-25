@@ -40,7 +40,7 @@ export default function RootLayout({
           <Nav />
           {children}
           <FloatingButton />
-          <Footer />{" "}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
