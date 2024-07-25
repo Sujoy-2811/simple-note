@@ -1,5 +1,9 @@
-import Image from "next/image";
+import { NavList } from "@/components/notes/NoteList";
 
 export default function Home() {
-  return <div>Hello</div>;
+  return (
+    <div>
+      <NavList />
+    </div>
+  );
 }
