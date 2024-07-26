@@ -20,8 +20,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -31,6 +33,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
+        {modal}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -39,7 +42,7 @@ export default function RootLayout({
         >
           <Nav />
           {children}
-          <FloatingButton />
+         
           <Footer />
         </ThemeProvider>
       </body>
