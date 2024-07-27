@@ -12,28 +12,28 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-function Modal({ children , title= "New Note" }: Readonly<{ children: React.ReactNode , title : String }>) {
+function Modal({
+  children,
+  title = "",
+}: Readonly<{ children: React.ReactNode; title: String }>) {
   const router = useRouter();
   return (
-    <div>
-      <Dialog
-        defaultOpen={true}
-        open={true}
-        onOpenChange={() => {
-          router.back();
-        }}
-      >
-        <DialogTrigger>Open</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogDescription>
-              {children}
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Dialog
+      defaultOpen={true}
+      open={true}
+      onOpenChange={() => {
+        router.back();
+      }}
+    >
+      <DialogTrigger>Open</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          <div>{children}</div>
+          <DialogDescription aria-describedby={undefined}></DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
   );
 }
 

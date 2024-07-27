@@ -9,8 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { NoteType } from "@/types";
 import { date } from "zod";
+import NotePreview from "./NotePreview";
+import NoteICon from "./NoteICon";
 
 export const NoteItem = ({
   id = -1,
@@ -30,6 +33,7 @@ export const NoteItem = ({
         <div className="w-full flex justify-between mt-2">
           <span>{timestamp.getDate()}</span>
           <div className="flex gap-6 sm:gap-10 text-lg ">
+            <NoteICon id={id} />
             <FaEdit />
             <RiDeleteBin5Line />
           </div>
