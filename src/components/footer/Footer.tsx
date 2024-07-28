@@ -10,7 +10,8 @@ export const Footer = () => {
           © {date} - Designed and Developed by
           <Link
             className="text-green-600"
-            href="portfolio-nine-delta-75.vercel.app"
+            href="https://portfolio-nine-delta-75.vercel.app/"
+            target="_blank"
           >
             &nbsp;Sujoy.{" "}
           </Link>
