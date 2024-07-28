@@ -11,7 +11,7 @@ export default function page({
   console.log(searchParams.id);
 
   return (
-    <main className=" min-h-[650px] w-full grow block flex items-center justify-center">
+    <main className=" h-[75vh] w-full  grow  flex items-center justify-center">
       <NoteCard id={searchParams.id} />
     </main>
   );

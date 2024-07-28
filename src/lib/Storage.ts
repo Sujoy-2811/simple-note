@@ -53,7 +53,7 @@ export function updateToLocalData({ id, title, content, timestamp }: NoteType) {
         }
         return item;
       });
-      console.log("🚀 19 ~ addToLocalData ~ dataList:", newDataList);
+      console.log("🚀 19 ~ updateToLocalData ~ dataList:", newDataList);
       localStorage.setItem(
         LOCALSTORAGEKEY,
         JSON.stringify({ notes: newDataList })
@@ -62,6 +62,37 @@ export function updateToLocalData({ id, title, content, timestamp }: NoteType) {
     }
   } catch (error) {
     console.log("🚀 ~ updateToLocalData ~ error:", error);
+
+    return false;
+  }
+}
+export function deleteFromLocalData({ id }: { id: string }) {
+  console.log("-- in delete func");
+  // console.log("🚀 ~ addToLocalData ~ id:", id);
+  // id = slugify(id);
+  // console.log("🚀 ~ addToLocalData ~ id:", id);
+  try {
+    // const timestamp = new Date().toISOString;
+
+    let dataList = getLocalData();
+    console.log("🚀 ~ updateToLocalData ~ dataList:", dataList);
+    if (!dataList) {
+      console.log("-- delete  no avaible to modify");
+    } else {
+      if (!dataList.find((item) => item.id === id)) {
+        console.log("no match data found");
+        return false;
+      }
+      const newDataList = dataList.filter((item) => item.id !== id);
+      console.log("🚀 19 ~ deleteToLocalData ~ dataList:", newDataList);
+      localStorage.setItem(
+        LOCALSTORAGEKEY,
+        JSON.stringify({ notes: newDataList })
+      );
+      return true;
+    }
+  } catch (error) {
+    console.log("🚀 ~ deleteToLocalData ~ error:", error);
 
     return false;
   }

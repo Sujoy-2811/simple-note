@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
@@ -15,6 +16,9 @@ import { date } from "zod";
 import NotePreview from "./NotePreview";
 import NoteICon from "./NoteICon";
 import Link from "next/link";
+import { deleteFromLocalData } from "@/lib/Storage";
+import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export const NoteItem = ({
   id = "",
@@ -22,8 +26,11 @@ export const NoteItem = ({
   content = "",
   timestamp = new Date("2023-11-05T10:05:00Z"),
 }: NoteType) => {
+  const router = useRouter();
+
   return (
-    <Card className="min-w-[300px]  flex flex-col line-clamp-1 overflow-hidden">
+    <Card className=" flex flex-col line-clamp-1 overflow-hidden ">
+      {/* <Card className="min-w-[250px] w-[80vw] sm:w-[300px]   flex flex-col line-clamp-1 overflow-hidden "> */}
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
@@ -38,7 +45,12 @@ export const NoteItem = ({
             <Link href={{ pathname: "/new-note", query: { id } }}>
               <FaEdit />
             </Link>
-            <RiDeleteBin5Line />
+            {/* <RiDeleteBin5Line
+              onClick={() => {
+                deleteFromLocalData({ id });
+                router.refresh();
+              }}
+            /> */}
           </div>
         </div>
       </CardFooter>

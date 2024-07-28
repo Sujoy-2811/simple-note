@@ -27,21 +27,21 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "dark min-h-screen bg-background font-sans antialiased p-2 sm:p-4 lg:p-8 sm:flex sm:flex-col  ",
+          " min-h-screen bg-background font-sans antialiased p-2 sm:p-4 lg:p-8 sm:flex sm:flex-col  ",
           fontSans.variable
         )}
       >
-        {/* <ThemeProvider
+        <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        > */}
-        <Nav />
-        {children}
+        >
+          <Nav />
+          {children}
 
-        <Footer />
-        {/* </ThemeProvider> */}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
