@@ -1,9 +1,9 @@
-"use client";
 import { NoteType } from "@/types";
 import { LOCALSTORAGEKEY } from "../../constant";
 import { date } from "zod";
 // import slugify from "slugify";
 
+var length = 0;
 export function addToLocalData({ id, title, content, timestamp }: NoteType) {
   console.log("-- in add func");
   // console.log("🚀 ~ addToLocalData ~ id:", id);
@@ -108,7 +108,10 @@ export function getLocalData(): NoteType[] {
       if (!dataList) {
         return [];
       }
-      return dataList.notes.map((item: NoteType) => {
+      length = 0;
+
+      const currdata: NoteType[] = dataList.notes.map((item: NoteType) => {
+        length = length + 1;
         const timestamp = new Date(item.timestamp);
         return {
           id: item.id,
@@ -117,8 +120,25 @@ export function getLocalData(): NoteType[] {
           timestamp,
         };
       });
+      return currdata;
     }
   } catch (error) {
     console.log("🚀 ~ getLocalData ~ error:", error);
   }
+}
+
+export function getLocalLength() {
+  getLocalData();
+  return length;
+  // try {
+  //   let count = 0;
+  //   getLocalData().map((item) => {
+  //     console.log(item);
+  //     count++;
+  //   });
+  //   console.log("🚀 ~ getLocalLength ~ count:", count);
+  //   return count;
+  // } catch (error) {
+  //   console.log("🚀 ~ getLocalData ~ error:", error);
+  // }
 }
