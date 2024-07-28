@@ -16,13 +16,13 @@ import NotePreview from "./NotePreview";
 import NoteICon from "./NoteICon";
 
 export const NoteItem = ({
-  id = -1,
+  id = "",
   title = "",
   content = "",
   timestamp = new Date("2023-11-05T10:05:00Z"),
 }: NoteType) => {
   return (
-    <Card className="min-w-[300px]  flex flex-col">
+    <Card className="min-w-[300px]  flex flex-col line-clamp-1 overflow-hidden">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>

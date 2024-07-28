@@ -3,7 +3,7 @@ import React from "react";
 
 export const Footer = () => {
   return (
-    <footer className="flex  m-auto justify-around text-center py-4 sm:py-6">
+    <footer className=" flex  m-auto justify-around text-center py-4 sm:py-6">
       <p className="flex flex-col sm:block">
         <span>
           © 2024 - Designed and Developed by

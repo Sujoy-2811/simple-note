@@ -20,34 +20,28 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
-  note,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
-  note: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased p-2 sm:p-4 lg:p-8 sm:flex sm:flex-col  ",
+          "dark min-h-screen bg-background font-sans antialiased p-2 sm:p-4 lg:p-8 sm:flex sm:flex-col  ",
           fontSans.variable
         )}
       >
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        >
-          {note}
-          {modal}
-          <Nav />
-          {children}
+        > */}
+        <Nav />
+        {children}
 
-          <Footer />
-        </ThemeProvider>
+        <Footer />
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );

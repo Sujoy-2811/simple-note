@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useId } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +17,9 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-
+import { useRef } from "react";
+import { addToLocalData } from "@/lib/Storage";
+import { getLocalData } from "@/lib/Storage";
 const formSchema = z.object({
   title: z
     .string()
@@ -29,21 +31,40 @@ const formSchema = z.object({
     .max(300, { message: "Content must not be longer than 300 characters." }),
 });
 
-export default function NoteForm() {
+export default function NoteForm({ id }: { id: string }) {
+  const list = getLocalData();
+  let data;
+  if (!list) {
+    data = undefined;
+  } else {
+    data = getLocalData()?.find((item) => item.id === id);
+  }
+  const { title, content } = data;
   const closeForm = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      content: "",
+      title: data?.title | "",
+      content: data?.content | "",
     },
   });
+
+  const router = useRouter();
 
   // -submit
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    const timestamp = new Date();
+    const id = values.title.substring(0, 5) + Math.random().toString(7);
+    addToLocalData({
+      id,
+      title: values.title,
+      content: values.content,
+      timestamp,
+    });
+    router.replace("/");
   }
-
+  const ref = useRef();
   return (
     <Form {...form}>
       <form
@@ -82,7 +103,15 @@ export default function NoteForm() {
             </FormItem>
           )}
         />
-        <div className=" w-full flex flex-col sm:items-end">
+        <div className=" w-full flex  justify-end  space-x-4 sm:space-x-8">
+          <Button
+            type="button"
+            onClick={() => {
+              closeForm.replace("/");
+            }}
+          >
+            Cancel
+          </Button>
           <Button type="submit">Submit</Button>
         </div>
       </form>
