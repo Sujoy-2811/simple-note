@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId } from "react";
+import React, { useEffect, useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +18,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { useRef } from "react";
-import { addToLocalData } from "@/lib/Storage";
+import { addToLocalData, updateToLocalData } from "@/lib/Storage";
 import { getLocalData } from "@/lib/Storage";
 const formSchema = z.object({
   title: z
@@ -32,20 +32,40 @@ const formSchema = z.object({
 });
 
 export default function NoteForm({ id }: { id: string }) {
-  const list = getLocalData();
-  let data;
-  if (!list) {
-    data = undefined;
-  } else {
-    data = getLocalData()?.find((item) => item.id === id);
+  // const [data, setData] = useState<{ title: string; content: string }>({
+  //   title: "",
+  //   content: "",
+  // });
+  // const [content, setContent] = useState<string | undefined>();
+  let title = "",
+    content = "";
+  let timestamp: Date;
+  // useEffect(() => {
+  if (id) {
+    const list = getLocalData();
+    console.log("🚀 ~ useEffect ~ list:", list);
+    if (list) {
+      const rawData = getLocalData()?.find((item) => item.id === id);
+      // console.log("🚀 ~ useEffect ~ data:", data);
+      if (rawData?.title && rawData?.content) {
+        // setData({ title: rawData.title, content: rawData.content });
+        title = rawData.title;
+        content = rawData.content;
+        timestamp = rawData.timestamp;
+      }
+    }
   }
-  const { title, content } = data;
+  // }, [id]);
+  console.log(title, content);
+
   const closeForm = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: data?.title | "",
-      content: data?.content | "",
+      // title: "",
+      // content: "",
+      title: title,
+      content: content,
     },
   });
 
@@ -54,14 +74,23 @@ export default function NoteForm({ id }: { id: string }) {
   // -submit
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    const timestamp = new Date();
-    const id = values.title.substring(0, 5) + Math.random().toString(7);
-    addToLocalData({
-      id,
-      title: values.title,
-      content: values.content,
-      timestamp,
-    });
+    if (id) {
+      updateToLocalData({
+        id,
+        title: values.title,
+        content: values.content,
+        timestamp,
+      });
+    } else {
+      const timestamp = new Date();
+      id = values.title.substring(0, 5) + Math.random().toString(7);
+      addToLocalData({
+        id,
+        title: values.title,
+        content: values.content,
+        timestamp,
+      });
+    }
     router.replace("/");
   }
   const ref = useRef();

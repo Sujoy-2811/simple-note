@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import { list } from "postcss";
+import Link from "next/link";
 
 export default function NoteCard({ id }: { id: string }) {
   let [data, setData] = useState<NoteType | undefined>();
@@ -40,7 +41,9 @@ export default function NoteCard({ id }: { id: string }) {
   return (
     <div className=" min-w-[80%] sm:min-w-[250px] sm:max-w-[300px] sm:min-h-[400px] sm:w-[50vw]  lg:max-w-[650px]  min-h-80 relative">
       <p className=" absolute top-0 right-0 flex  space-x-4 sm:space-x-6 text-lg sm:text-xl translate-y-[-150%]">
-        <FaEdit />
+        <Link href={{ pathname: "/new-note", query: { id } }}>
+          <FaEdit />
+        </Link>
         <RiDeleteBin5Line />
         <ImCross onClick={() => router.push("/")} />
       </p>

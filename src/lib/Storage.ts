@@ -29,6 +29,43 @@ export function addToLocalData({ id, title, content, timestamp }: NoteType) {
     return false;
   }
 }
+export function updateToLocalData({ id, title, content, timestamp }: NoteType) {
+  console.log("-- in update func");
+  // console.log("🚀 ~ addToLocalData ~ id:", id);
+  // id = slugify(id);
+  // console.log("🚀 ~ addToLocalData ~ id:", id);
+  try {
+    // const timestamp = new Date().toISOString;
+    const data = { id, title, content, timestamp };
+
+    let dataList = getLocalData();
+    console.log("🚀 ~ updateToLocalData ~ dataList:", dataList);
+    if (!dataList) {
+      console.log("-- update  no avaible to modify");
+    } else {
+      if (!dataList.find((item) => item.id === data.id)) {
+        console.log("nomatch dat found");
+        return false;
+      }
+      const newDataList = dataList.map((item) => {
+        if (item.id === data.id) {
+          return { ...data, id: item.id };
+        }
+        return item;
+      });
+      console.log("🚀 19 ~ addToLocalData ~ dataList:", newDataList);
+      localStorage.setItem(
+        LOCALSTORAGEKEY,
+        JSON.stringify({ notes: newDataList })
+      );
+      return true;
+    }
+  } catch (error) {
+    console.log("🚀 ~ updateToLocalData ~ error:", error);
+
+    return false;
+  }
+}
 
 export function getLocalData(): NoteType[] {
   let dataList;

@@ -6,6 +6,7 @@ export default function NewNote({
 }: {
   searchParams: { id: string };
 }) {
+  console.log(searchParams.id);
   return (
     <div className="w-full sm:flex  sm:justify-center sm:items-center sm:grow sm:justify-center">
       <NoteForm id={searchParams.id} />

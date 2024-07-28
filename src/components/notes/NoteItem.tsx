@@ -14,6 +14,7 @@ import { NoteType } from "@/types";
 import { date } from "zod";
 import NotePreview from "./NotePreview";
 import NoteICon from "./NoteICon";
+import Link from "next/link";
 
 export const NoteItem = ({
   id = "",
@@ -34,7 +35,9 @@ export const NoteItem = ({
           <span>{timestamp.getDate()}</span>
           <div className="flex gap-6 sm:gap-10 text-lg ">
             <NoteICon id={id} />
-            <FaEdit />
+            <Link href={{ pathname: "/new-note", query: { id } }}>
+              <FaEdit />
+            </Link>
             <RiDeleteBin5Line />
           </div>
         </div>
